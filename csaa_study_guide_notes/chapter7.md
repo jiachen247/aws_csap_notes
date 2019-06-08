@@ -231,9 +231,82 @@ fully manage NoSQL service
 fast low latency
 scales v well
 
+**Data Model**
+- Tables Items and Attributes
+- 400KB item size limit
+- name value pair
+- no predefined schema
+- schemaless
+- only requires a pk
+- exposed over HTTP(S)
 
+**Data Types**
+super flexible
+Scalar, Set, or Document
+
+**Scalar**: String, Number, Binary, Boolean and Null
+**Set**: unique list of scalars, String set Number set and Binary Set
+**Document**: List or Map (json objects
+
+
+
+dont read write on the same primary key
+use CloudWatch for detailed metrics and provision capacity
+
+Secondary Indexes
+just an additional index for sorting and searching
+
+PutItem does UPSERT
+
+
+PutItem vs UpdateItem
+https://stackoverflow.com/questions/43667229/difference-between-dynamodb-putitem-vs-updateitem
+
+
+conditionals via expect
+
+**Secondary Indexes**
+Global Secondary Index
+can be created at any time
+can have as many as you want
+
+Local Secondary Index
+only can have one
+must be created when the table is created
+
+**Consistency**
+eventually consistent or strongly consistent (consistency guaranteed)
+
+**Batch Operations**
+BatchGetItem and BatchWriteItem
+(up to 25 writes per request)
+
+**Searching Items**
+Query and Scan
+
+Query just takes the data you filter
+Scan takes all the data then filters
+
+**Scaling and Partitioning**
+Amazon DynamoDB stores items for a single table across multiple partitions, as represented in Amazon DynamoDB decides which partition to store the item in based on the partition key.
+
+distribute keys evenly to take advantage of throughput
+
+**Security**
+use ec2 instance profile with a role fr access control
+
+fine grain controls available what table to read and write too.
+
+**Streams**
+intreasting usecase
+changes are streamed as shards in real time
+can be integrated with the kinesis adapter
+can integrate with lambdas
+still abit effy with the exact use cases
 
 # Additional References
 https://www.youtube.com/watch?v=GgLKodmL5xE
 
 https://www.youtube.com/watch?v=lQEMV_Qgjrw
+
+https://www.youtube.com/watch?v=tDqLwzQEOmM
