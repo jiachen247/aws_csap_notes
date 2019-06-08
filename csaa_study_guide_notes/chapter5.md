@@ -88,6 +88,7 @@ can GET request to get logs
 does not aggreegate across regions but across Axa
 
 can be persisted to S3 if you want
+by default metrics are kept for 2 weeks
 
 5000 alarm limit per account
 
