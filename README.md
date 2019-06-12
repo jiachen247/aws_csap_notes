@@ -5,8 +5,9 @@ jiachen's attempts to document his csap journey :-)
 
 week|todo
 -|-
-1|AWS Textbook + AWS official resources
-2|Acloudguru course
+1|AWS CSAA Textbook + AWS official resources
+2|AWS User Guides
+2|ACloudGuru course
 3 - 6|Linux Academy
 7|AWS Whitepapers
 8|practice papers

@@ -111,11 +111,9 @@ activity worker - single compute proccess running the activity
 a unique task token
 activity tasks, AWS Lambda tasks, and decision tasks.
 
-
 > A decision task tells a decider that the state of the workflow execution has changed so that
 the decider can determine the next activity that needs to be performed. The decision task
 contains the current workflow history.
-
 
 **Task Lists**
 are like tasks queues 
