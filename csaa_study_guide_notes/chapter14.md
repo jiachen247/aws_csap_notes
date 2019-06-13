@@ -99,23 +99,23 @@ constraints may not be always bad
 
 everything has limits including traditional infrastructure
 
-1. E
-2. C, B
-3. C, D
-4. C, D
-5. D, E, B
-6. A, E ? 
-7. C
-8. D
-9. D
-10. B
-11. C
-12. A
-13. B
-14. B C E
-15. A
-16. B
-17. A
-18. B
-19. A 
-20. D
+1. E / BE
+2. C, B / BC
+3. C, D /AE
+4. C, D /AD
+5. D, E, B /BDE
+6. A, E ? /ACD
+7. C /C
+8. D /A
+9. D /D
+10. B /B
+11. C /C
+12. A /A
+13. B /B
+14. B C E /BCE
+15. A /ABE
+16. B /B
+17. A /A
+18. B /B
+19. A  /A
+20. D /C
