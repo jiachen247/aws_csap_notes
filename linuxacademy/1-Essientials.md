@@ -82,7 +82,7 @@ Layer 2: Data link - mac addr
 Layer 3: Network - ip addr
 Layer 4: Transport - TCP/UDP
 Layer 5: Session - port 
-Layer 6: Presentation - encryption 
+Layer 6: Presentation - encryption
 Layer 7: Application - http
 
 each layer adds additional functionalities
