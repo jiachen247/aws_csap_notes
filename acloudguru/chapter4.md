@@ -31,15 +31,15 @@ https://www.gluu.org/resources/documents/articles/oauth-vs-saml-vs-openid-connec
 AWS Tools for account management
 1. AWS Organizations
 2. Service Control Policy (SCP)
-3. Tagging
-4. Resource Groups
-5. Consolidated Billing
+3. Tagginghttps://d1.awsstatic.com/aws-answers/AWS_Multi_Account_Security_Strategy.pdf
+4. Resourchttps://d1.awsstatic.com/aws-answers/AWS_Multi_Account_Security_Strategy.pdfps
+5. Consolihttps://d1.awsstatic.com/aws-answers/AWS_Multi_Account_Security_Strategy.pdfBilling
 
-Account Structure
-1. Publishing Account
-2. Identity Account
-3. Logging Account Account
-4. Information Security Account
+Account Sthttps://d1.awsstatic.com/aws-answers/AWS_Multi_Account_Security_Strategy.pdfe
+1. Publishhttps://d1.awsstatic.com/aws-answers/AWS_Multi_Account_Security_Strategy.pdfcount
+2. Identithttps://d1.awsstatic.com/aws-answers/AWS_Multi_Account_Security_Strategy.pdfunt
+3. Logginghttps://d1.awsstatic.com/aws-answers/AWS_Multi_Account_Security_Strategy.pdfnt Account
+4. Informahttps://d1.awsstatic.com/aws-answers/AWS_Multi_Account_Security_Strategy.pdfecurity Account
 5. Central IT Account Structure
    
 Consolidated Billing

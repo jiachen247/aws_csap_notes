@@ -280,3 +280,6 @@ SCP AND (IAM OR RESOURCE)
 
 **cross account**
 SCP AND (IAM AND RESOURCE)
+
+use case for permission boundary
+- allow a sub account to create more sub accounts but only with the role permission
