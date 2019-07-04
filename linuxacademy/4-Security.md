@@ -139,10 +139,92 @@ Standard vs Advanced
 - output to cloudwatch or console
 - can respond to cloudwatch events
 - master guard duty account
-- can add memeber account
+- can add member account
 - cannot be a member and a master
 - generate findings
 - requires service roles permissions
 - trusted IP list for seperate aws accounts
 - threats models are global
 - almost realtime
+
+## EC2
+- key service
+
+**Fundermentals**
+- created from an AMI
+- not HA by default
+- attach SG to network interfaces
+- only larger instances have instance store support
+
+### AMIs
+- metadata
+  - arch an os
+  - block device volumes
+
+creator is owner
+
+AMI are actually just metadata with points to EBS snapshots
+
+AMI market place - dont have to pay for EBS snapshot storage
+
+**Instance Store base AMI**
+- no volume snapshots
+- used files and store on S3
+- takes longer to provision
+
+
+**Virtualization**
+hvm
+harware assisted virtualization
+SRIOV for enhanced networking
+emulated to hardware virtualized
+AWS Nitro - near bare metal level
+for exam assume nitro is the correct answer
+
+
+**Instant Type**
+
+General Purpose 
+- use this is no requirement
+1
+M Class
+
+1. General Purpose
+   1. M Class - normal/default
+      1. M5a - amd
+   2. T Class - Burstable
+      1. earn cpu credit
+      2. deal with burst/sperodic load
+         1. standard - blocked after qouta
+         2. limited - charged for extra
+   3. A Class
+      1. ARM 
+      2. up to 10 GBPS
+2. Compute Optimized - C Class
+   1. C5 
+   2. C5N
+      1. enhanced networking
+3. Memory Optimized
+   1. more mem
+   2. instance store value avaliable
+   3. R Class / default mem class
+      1. a - amd
+   4. X Class - even more powerful
+      1. e - even more powerful
+      2. H Class
+4. Accelerated Computing
+very specialized
+- attached GPU
+for ML for 
+- P Family Class
+- G Class - for graphic modeling
+- F CLass - FPGA
+
+5. Storage Optimized
+   1. H Class
+   2. D Class
+
+* important for the exam
+
+## Storage Options
+EBS vs Instance Store
