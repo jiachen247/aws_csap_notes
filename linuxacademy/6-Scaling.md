@@ -319,3 +319,308 @@ Logging Reporting and Monitoring
 - hit miss rates under cf
 - http status codes
 - can log to s3
+
+## Route 53
+- can register domain
+- or point your ns to the r53 hosted zone
+- domain hosting
+- point nameservers to aws hosted zone when importing a domain
+- can have an internal internal hosted zone just for a VPC
+
+healthcheck
+- r53 can do health checks also
+- and do automatic failover
+- this is done on the record level
+- A record as primary or secondary
+
+Alias
+- can reference logical aws resource
+- cannot use cname on an apex
+
+Resilliance
+- does not check individual instances behind ELBs
+
+Inbound and Expound Endpoint
+- used for forwarding dns queries
+- with on prem systems
+- https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver-forwarding-inbound-queries.html
+
+Advanced Routing
+
+**Routing Policy**
+1. simple - unique record set with multiple values via round robin
+2. failover - private and secondary
+3. geo routing
+4. geo proximity
+5. latency based routing
+6. weighted routing
+
+can mix and match policy
+- can version control
+
+## Lifecycle Management
+- Storage class / tier
+- can move or convert between tiers
+- determines cost and durability
+- and first byte latency
+- 11 nines durability - all classes
+
+
+**CLASSES**
+
+1. Standard
+   1. 99.99 availability
+   2. 99.9
+   3. use as a default
+   4. replicated across at least 3 AZs
+
+2. Infrequent Access (IA)
+   1. still same replication
+   2. same first byte latency
+   3. 30 day minimum storage
+   4. cheaper access rates
+   5. 128k min storage fee
+
+3. One Zone Infrequent IA
+   1. no cross az replication
+   2. same limits for IA
+   3. 99.5 object availability
+
+4. Reduced Redundancy
+   1. one zone
+
+5. Glacier
+   1. first byte latency - minutes to hours
+   2. need to request a restore to S3
+   3. 3+ AZ replication
+   4. 90 day minimum
+   5. 40 kb minimum size
+
+6. Glacier Deep Archive
+   1. hours retrieval
+   2. tape backup
+   
+7. Intelligent Tiering
+   1. per montly object monitering fee
+   2. AWS handles the moving and tiering
+   3. you pay a standard fee
+   4. no retrival fee
+   5. 30 day minimum
+   6. per object fees
+
+
+## Lifecycle rules
+- useful
+- becaureful some are oneway directions
+
+## Object Locking and Versioning
+
+Versioning
+- every object is unique
+- current version
+- can specify a version id
+- previous versions are stored in one zone IA
+
+
+Deletion does not actly delete
+- delete object deletes the reference returns 404 if get without version id
+- an still get all the versions
+- adds a delete marker
+
+Object Locking
+- requires versioing
+- for compliance
+- retention period - prevents change or delete 
+- legal holds - dont have an expiration note
+- can only enable for new buckets
+- no support for cross region replication with object locks
+
+## Security
+- private by default
+- only object owner or bucket owner by default
+
+If cross account
+- use iam role
+- or resource policy/ bucket policy
+  - can use this for un auth user / public user
+  - can base cond on tags
+  - can base cond file path 
+
+Access Control List
+- legacy control
+- can use to grant public access
+- simple permission set
+- can be applied to an object or an bucket
+- useful for impl object level acl
+
+Pre Signed URL
+- the link carries your role
+- the user you give it too inherits your access to the bucket or object
+- can create pre signed urls to an object that does not exist
+
+## Cross Region Replication
+- from src bucket to dest bucket in another region
+- effects only take place when CRR is turned on
+- requires versionings
+- can replicated encrypted via kms
+- cant replicate a bucket encrypted with CMK
+- can replciate based on prefix and tags
+- same ownership
+  - can change owner to you
+- iam role to perform the replication
+  - can be done automatically
+- lifecycle events are not replicated
+- one way ot retoractive only
+
+## Object Encryption
+- client side encrypted
+- server side encryption
+- sdks can do client side encryption
+- objects are encrypted not buckets
+
+**SSE**
+- customer provided key (SSE-C)
+  - does not support cross region replication
+  - can work with on prem HSM
+- SSE-S3
+  - envelop encryption with S3 master key
+  - fully managed
+- SSE-KMS
+  - envelop encryption with KMS cmk
+  - good for role splitting
+  - add auditing and logging
+  - rotate keys with kms
+  - must specifically allow when CRR is enabled
+  - aws will auto create a key for each service if you dont specify
+  - can set bucket defaults
+  - use bucket policy to enforce encryption on a bucket level 
+
+## Optimizing S3
+1. upload type
+2. tranfer acceleration
+3. naming
+
+**Upload Type**
+- single part upload by default
+- single upload up to 5GB
+- single data stream
+  - slower
+  - if anything fails must restart everything
+- multipart via uploadid
+  - faster
+  - if anything fails just have to retry that part
+  - just use this if more than 500mb
+  - up to 5TB
+  - 10,000 parts limit
+
+Transfer Acceleration
+- can enable in the console
+- transfer to cf edge location than go over the aws backbone
+- alot faster
+
+
+Object Naming
+- can partition bucket for better permformance
+  - higher limits since limits are per partition
+  - partition is done via prefixes
+  - 3500 puts and 5500 reads TPS
+  - if you need more than this than consider a good partition
+  - try to achieve a spread of prefixes
+
+## Glacier
+- values -> bucket
+- archive -> objects
+- Storage class as well as its isolated product
+- one of the cheapest storage
+- first byte latency can be hours
+- regional service
+- up to a thousand vaults per account
+- immutable -description
+- each vault can have an unlimited number of archives
+- async by nature
+- even an inventory takes time
+- inverntory has no metadata fields
+- DO NOT HAVE NAME OR METADATA
+- IMMUTABLE
+- retrival
+  - expedited 1 to 5 mins for small archives
+  - standard - default - 3 to 5 hours
+  - bulk - large quantity 5 to 12 hours but cost the least
+- request specific portions of the archive*** impt range of bytes
+- vault lock - 
+- no real advantage to using glacier directly but prefer to use with S3
+
+## EFS
+File system based storage
+
+- NFS 4 and 4.1
+- single AZ
+- raw block storage device
+- sharing is caring
+- highly perfomance file sharing
+- shared network file system
+- can mount into fs like ebs
+- VPC level entity
+- best practice
+- create a mount taget in each AZ in a subnet
+- can have a SG
+- does support encryption at rest or in flight
+  - just like S3 options 
+  - encryption in flight
+- amazon utils - aws efs utils
+  - sudo yum install amazon-efs-utils
+- mount targets are not HA by default but the actual nfs is HA by default
+- posix compliant file level permission
+
+**Backups**
+- can use aws backup service
+- and data sync with other sources
+
+Type
+- General Purpose
+- Max IOPS - but additional latency - good for parallel lworkloads
+- cannot change once efs is created
+
+Throughput mode
+- Busting - use this by default
+- Provisioned
+- can change afterwards
+
+Full Consistency
+- as per linux fs
+
+Replications
+- HA by default
+
+use cases
+- big data
+- medium workloads
+- content management 
+- expensive
+- home dir
+- parallel workloads
+- shared log storage - depending on specific use case
+- can scale and high throughput
+- can use to connect to on prem
+
+Anti Patterns
+- single machine
+- object storage
+- any integration with cloudfront
+- temp storage
+
+## FSx
+- like efs
+- but allows you to provision a fully manage 3rd part file system 
+- eg SMG shares for windows
+- eg Lustre optimized for temp storage for high throughput 
+- by default not HA
+- can integrate with mircosoft AD
+- not supported for SimpleAD
+- vpc level product
+- single subnet
+- encrypted by default
+
+Backup
+- can backup into S3 over VSS
+- or ms dfs for replication - need namespace servers
