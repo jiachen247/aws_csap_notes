@@ -51,7 +51,7 @@ Storage Class
 - cost
   
 Pricing
-- injecting is free
+- injesting is free
 - transfer out cost
 - GB per month charge 
 - small price on put and get
