@@ -335,4 +335,4 @@ Redis
 MemchaceD
 - simple use cases
 - format - basic key value set
-- scales vertically
+- scales verticallyQ
